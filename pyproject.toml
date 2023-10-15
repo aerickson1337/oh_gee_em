@@ -16,7 +16,7 @@ classifiers = [
 Changelog = "https://github.com/aerickson1337/oh_gee_em/releases"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.10"
 click = ">=8.0.1"
 
 [tool.poetry.dev-dependencies]
@@ -54,7 +54,7 @@ tests = ["tests", "*/tests"]
 
 [tool.coverage.run]
 branch = true
-source = ["oh_gee_em", "tests"]
+source = ["oh_gee_em"]
 
 [tool.coverage.report]
 show_missing = true

@@ -2,8 +2,8 @@
 import click
 
 
-@click.command()
-@click.version_option()
+@click.command()  # pragma: no cover
+@click.version_option()  # pragma: no cover
 def main() -> None:
     """Oh_Gee_Em."""
 
