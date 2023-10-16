@@ -2,7 +2,6 @@ from uuid import uuid4
 
 from gremlin_python.process.traversal import T
 
-from oh_gee_em.utilities import _ftv
 from oh_gee_em.utilities import enum_uuid_to_str
 
 

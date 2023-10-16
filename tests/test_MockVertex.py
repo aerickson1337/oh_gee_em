@@ -29,7 +29,7 @@ def test_mock_person_create_vertex(g, reset) -> None:
 
 def test_mock_person_get_vertex_dne(g, reset) -> None:
     fred = Person.get_vertex(g, id=str(uuid4()))
-    assert fred == None
+    assert fred is None
 
 
 def test_mock_person_get_or_create_vertex_1(g, reset) -> None:
@@ -56,29 +56,14 @@ def test_mock_person_get_or_create_vertex_2(g, reset) -> None:
     assert fred2.sex == "m"
 
 
-def test_mock_person_get_or_create_vertex_2(g, reset) -> None:
-    """test creating and then getting fred"""
-    # create fred
-    fred1 = Person.create_vertex(g, name="fred", age=22, sex="m")
-    assert fred1.name == "fred"
-    assert fred1.age == 22
-    assert fred1.sex == "m"
-
-    # get fred
-    fred2 = Person.get_vertex(g, id=fred1.id)
-    assert fred2.name == "fred"
-    assert fred2.age == 22
-    assert fred2.sex == "m"
-
-
 def test_mock_person_delete_vertex(g, reset) -> None:
-    """test Person.delete() convenince method works"""
+    """Test Person.delete() convenince method works."""
     fred = Person.create_vertex(g, name="fred", age=22, sex="m")
     # need to set fred = result so the ref count drops to 0 and this gets collected
     # not sure there's a way in python to hard delete this reference, with an api like
     # del fred, guessing not.
     fred = Person.delete_vertex(g, fred)
-    assert fred == None
+    assert fred is None
 
 
 # ---------------------------------------------------------------------------- #
@@ -100,7 +85,7 @@ def test_mock_person_save_1(g, reset, fred) -> None:
     assert fred.sex == "m"
 
     # validate update is correct when loaded
-    francine = Person.get_vertex(g, id=fred.id)
+    Person.get_vertex(g, id=fred.id)
     assert fred.name == "frederick"
     assert fred.age == 23
     assert fred.sex == "m"
@@ -172,4 +157,4 @@ def test_mock_person_delete(g, reset, fred) -> None:
     # not sure there's a way in python to hard delete this reference, with an api like
     # del fred, guessing not.
     fred = fred.delete(g)
-    assert fred == None
+    assert fred is None
