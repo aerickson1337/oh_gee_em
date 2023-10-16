@@ -1,9 +1,10 @@
+"""utilities for converting between the tinkerpop interface and the pydantic one."""
 from uuid import UUID
 
 from gremlin_python.process.traversal import T
 
 
-def enum_UUID_to_str(value):
+def enum_uuid_to_str(value):
     if isinstance(value, T):
         return value.name
     if isinstance(value, UUID):

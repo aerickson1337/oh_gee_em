@@ -27,6 +27,13 @@ repos:
         language: system
         types: [python]
         stages: [manual]
+      - id: autoflake
+        name: autoflake
+        entry: autoflake
+        language: system
+        types: [python]
+        require_serial: true
+        args: ["-r", "--imports=gremlin_python,oh_gee_em,pydantic", "."]
       - id: end-of-file-fixer
         name: Fix End of Files
         entry: end-of-file-fixer
