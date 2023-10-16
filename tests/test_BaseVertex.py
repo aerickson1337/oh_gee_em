@@ -29,6 +29,10 @@ def g() -> GraphTraversalSource:
 def reset(g) -> None:
     g.V().drop().iterate()
 
+@pytest.fixture
+def fred():
+    return Person(name="fred", age="22", sex="m")
+
 # ---------------------------------------------------------------------------- #
 #                              @CLASS METHOD TESTS                             #
 # ---------------------------------------------------------------------------- #
@@ -81,6 +85,16 @@ def test_mock_person_get_or_create_vertex_2(g, reset) -> None:
     assert fred2.age == 22
     assert fred2.sex == "m"
 
+def test_mock_person_delete_vertex(g, reset) -> None:
+    """test Person.delete() convenince method works
+    """
+    fred = Person.create_vertex(g, name="fred", age=22, sex="m")
+    # need to set fred = result so the ref count drops to 0 and this gets collected
+    # not sure there's a way in python to hard delete this reference, with an api like
+    # del fred, guessing not.
+    fred = Person.delete_vertex(g, fred)
+    assert fred == None
+
 # ---------------------------------------------------------------------------- #
 #                          REGULAR CLASS METHOD TESTS                          #
 # ---------------------------------------------------------------------------- #
@@ -88,7 +102,8 @@ def test_mock_person_save_1(g, reset) -> None:
     """test creating and then getting fred
     """
     # create fred
-    person = Person.create_vertex(g, name="fred", age=22, sex="m")
+    person = Person(name="fred", age=22, sex="m")
+    person.create(g)
     # update their information
     person.name = "frederick"
     person.age = 23
@@ -109,7 +124,8 @@ def test_mock_person_save_1(g, reset) -> None:
 def test_mock_person_save_2(g, reset) -> None:
     """test local updates only pushed on .save()
     """
-    fred = Person.create_vertex(g, name="fred", age=22, sex="m")
+    fred = Person(name="fred", age=22, sex="m")
+    fred.create(g)
     evil_fred = Person.get_vertex(g, id=fred.id)
     
     fred.name = "frederick"
@@ -174,6 +190,6 @@ def test_mock_person_delete(g, reset) -> None:
 
     # need to set fred = result so the ref count drops to 0 and this gets collected
     # not sure there's a way in python to hard delete this reference, with an api like
-    # Person.delete(g, fred), guessing not.
-    fred = Person.delete(g, fred)
+    # del fred, guessing not.
+    fred = fred.delete(g)
     assert fred == None

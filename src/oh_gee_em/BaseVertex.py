@@ -91,7 +91,7 @@ class BaseVertex(BaseModel):
         return cls(**vertex)
 
     @classmethod
-    def delete(cls, g, BaseVertex) -> None:
+    def delete_vertex(cls, g, BaseVertex) -> None:
         g.V(BaseVertex.id).drop().iterate()
 
     def update(self, **update_fields) -> BaseVertex:
@@ -99,14 +99,12 @@ class BaseVertex(BaseModel):
             setattr(self, field, value)
         return self
 
-    def save(self, g, *args, **kwargs) -> BaseVertex:
-        # Need an index.
-        if not getattr(self, "id", None):
-            raise Exception("Must have an id to call this method.")
+    def save(self, g) -> BaseVertex:
+        id_map = {}
+        if self.id:
+            id_map = {T.id: str(self.id)}
 
-        # Look up by index, if we matched, update the vertex with values stored in the model.
-        id_map = {T.id: str(self.id)}
-        vertex = next(g.merge_v(id_map).option(Merge.on_match, self.model_dump()).element_map(), None)
+        vertex = next(g.merge_v(id_map).option(Merge.on_match, self.model_dump(exclude_none=True)).element_map(), None)
         if not vertex:
             return None
 
@@ -132,3 +130,6 @@ class BaseVertex(BaseModel):
         vertex = _ftv(vertex)
         self.update(**vertex)
         return self
+
+    def delete(self, g) -> None:
+        g.V(self.id).drop().iterate()
