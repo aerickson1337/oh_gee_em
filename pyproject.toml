@@ -18,6 +18,8 @@ Changelog = "https://github.com/aerickson1337/oh_gee_em/releases"
 [tool.poetry.dependencies]
 python = "^3.10"
 click = ">=8.0.1"
+pydantic = "^2.4.2"
+gremlinpython = "^3.7.0"
 
 [tool.poetry.dev-dependencies]
 Pygments = ">=2.10.0"
@@ -44,6 +46,7 @@ sphinx-click = ">=3.0.2"
 typeguard = ">=2.13.3"
 xdoctest = {extras = ["colors"], version = ">=0.15.10"}
 myst-parser = {version = ">=0.16.1"}
+ipykernel = "^6.25.2"
 
 [tool.poetry.scripts]
 oh_gee_em = "oh_gee_em.__main__:main"

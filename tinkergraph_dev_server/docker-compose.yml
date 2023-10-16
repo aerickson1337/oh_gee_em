@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+    neptune:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        ports:
+          - 8182:8182
