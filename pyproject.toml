@@ -48,6 +48,7 @@ xdoctest = {extras = ["colors"], version = ">=0.15.10"}
 myst-parser = {version = ">=0.16.1"}
 ipykernel = "^6.25.2"
 autoflake = "^2.2.1"
+ruff = "^0.0.292"
 
 [tool.poetry.scripts]
 oh_gee_em = "oh_gee_em.__main__:main"

@@ -1,10 +1,8 @@
 from __future__ import annotations
 
 import logging
-from typing import Union
 from uuid import UUID
 
-from gremlin_python.process.traversal import Cardinality
 from gremlin_python.process.traversal import Merge
 from gremlin_python.process.traversal import T
 from pydantic import BaseModel

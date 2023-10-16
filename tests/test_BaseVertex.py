@@ -1,13 +1,6 @@
 from uuid import uuid4
 
 import pytest
-from gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
-from gremlin_python.process.anonymous_traversal import traversal
-from gremlin_python.process.graph_traversal import GraphTraversalSource
-from gremlin_python.process.graph_traversal import __
-from gremlin_python.process.traversal import Cardinality
-from gremlin_python.process.traversal import Merge
-from gremlin_python.process.traversal import T
 
 from oh_gee_em import BaseVertex
 
