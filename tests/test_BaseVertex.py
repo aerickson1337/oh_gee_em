@@ -98,33 +98,31 @@ def test_mock_person_delete_vertex(g, reset) -> None:
 # ---------------------------------------------------------------------------- #
 #                          REGULAR CLASS METHOD TESTS                          #
 # ---------------------------------------------------------------------------- #
-def test_mock_person_save_1(g, reset) -> None:
+def test_mock_person_save_1(g, reset, fred) -> None:
     """test creating and then getting fred
     """
     # create fred
-    person = Person(name="fred", age=22, sex="m")
-    person.create(g)
+    fred.create(g)
     # update their information
-    person.name = "frederick"
-    person.age = 23
+    fred.name = "frederick"
+    fred.age = 23
     # save to graph
-    person.save(g)
+    fred.save(g)
 
     # validate update is correct locally
-    assert person.name == "frederick"
-    assert person.age == 23
-    assert person.sex == "m"
+    assert fred.name == "frederick"
+    assert fred.age == 23
+    assert fred.sex == "m"
 
     # validate update is correct when loaded
-    francine = Person.get_vertex(g, id=person.id)
-    assert person.name == "frederick"
-    assert person.age == 23
-    assert person.sex == "m"
+    francine = Person.get_vertex(g, id=fred.id)
+    assert fred.name == "frederick"
+    assert fred.age == 23
+    assert fred.sex == "m"
 
-def test_mock_person_save_2(g, reset) -> None:
+def test_mock_person_save_2(g, reset, fred) -> None:
     """test local updates only pushed on .save()
     """
-    fred = Person(name="fred", age=22, sex="m")
     fred.create(g)
     evil_fred = Person.get_vertex(g, id=fred.id)
     
@@ -147,30 +145,28 @@ def test_mock_person_save_2(g, reset) -> None:
     assert evil_fred.age == 10000
     assert evil_fred.sex == "evil"
 
-def test_mock_person_update(g, reset) -> None:
+def test_mock_person_update(g, reset, fred) -> None:
     """test update(**dict) convenince method works 
     """
-    fred = Person.create_vertex(g, name="fred", age=22, sex="m")
-    
+    fred.create(g)
     fred.update(**{"name":"frederick", "age": 50})
     assert fred.name == "frederick"
     assert fred.age == 50
 
-def test_mock_person_create_no_id(g, reset) -> None:
+def test_mock_person_create_no_id(g, reset, fred) -> None:
     """test Person.create() convenince method works with automatic id
     """
-    fred = Person(name="fred", age=22, sex="m")
     fred.create(g)
 
     assert fred.name == "fred"
     assert fred.age == 22
     assert fred.sex == "m"
 
-def test_mock_person_create_id_manually_set(g, reset) -> None:
+def test_mock_person_create_id_manually_set(g, reset, fred) -> None:
     """test Person.create() convenince method works with manual id
     """
     test_id = str(uuid4())
-    fred = Person(id=test_id, name="fred", age=22, sex="m")
+    fred.id = test_id
     fred.create(g)
 
     assert fred.id == test_id
@@ -178,10 +174,9 @@ def test_mock_person_create_id_manually_set(g, reset) -> None:
     assert fred.age == 22
     assert fred.sex == "m"
 
-def test_mock_person_delete(g, reset) -> None:
+def test_mock_person_delete(g, reset, fred) -> None:
     """test Person.delete() convenince method works
     """
-    fred = Person(name="fred", age=22, sex="m")
     fred.create(g)
     
     assert fred.name == "fred"
