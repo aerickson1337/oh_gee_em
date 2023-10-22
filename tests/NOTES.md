@@ -10,9 +10,10 @@ I'll need to think about the best way to implement this "UniqueIdProvider" that 
 
 I need to spend some time thinking about how to implement the concept of a "UniqueIdProvider", what the API for that would look like, and if its possible to provide a default UUID implementation. My major concern with the other types is the unique_id batching and the potential for high complexity and ephemeral failures along with how to test it. With these conflicting id's using the `Merge.onCreate` strategy may work in some cases, but in others may not be desirable.
 
-All of the above might be somewhat minimized with use of transactions, but will still need a way to do the unique_id bulking as far as I can tell.
+All of the above might be somewhat minimized with use of transactions, but will still need a way to do the unique_id bulking for non-uuid's as far as I can tell.
 
-- (0.0.1) TODO
+- (0.0.1) mergeV adds a lot of easier to read and use possibilities for filtering -> inserting. Encapsulating these in a way that makes sense might be tricky but should be wrapped up in the other filter/sorting/sifting operations. Django's query `objects` might be a good solution for this but I'm worried about the RDS/SQL roots it grew out of having moulded it's API away from what **this__ library should be shooting for. I think focusing on the CRUD aspects of this library to start with are going to be the most useful low hanging fruit to capture. Being able to hide some of those more complex queries and plug the CRUD aspects directly into API's is a big time saver. Overall once all of that is more ironed out in my head I think approaching how to best do these Domain Specific Language (DSL) helpers will be easier.
+
 - (0.0.1) TODO
 - (0.0.1) TODO
 - (0.0.1) TODO
