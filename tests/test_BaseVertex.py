@@ -1,19 +1,6 @@
 from uuid import uuid4
 
-import pytest
-
 from oh_gee_em import BaseVertex
-
-
-class Person(BaseVertex):
-    name: str
-    age: int
-    sex: str
-
-
-@pytest.fixture
-def fred():
-    return Person(name="fred", age="22", sex="m")
 
 
 # ---------------------------------------------------------------------------- #

@@ -32,7 +32,7 @@ repos:
         entry: ruff
         language: system
         types: [python]
-        args: ["check"]
+        args: ["check", "--fix"]
       - id: end-of-file-fixer
         name: Fix End of Files
         entry: end-of-file-fixer

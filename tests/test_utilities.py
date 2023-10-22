@@ -1,8 +1,21 @@
 from uuid import uuid4
 
 from gremlin_python.process.traversal import T
+from pydantic import Field
 
+from oh_gee_em import BaseVertex
+from oh_gee_em import BaseVertices
 from oh_gee_em.utilities import enum_uuid_to_str
+
+
+class Person(BaseVertex):
+    name: str
+    age: int
+    sex: str | None = None
+
+
+class People(BaseVertices):
+    root: set[Person] = Field(default_factory=set())
 
 
 def test_enum_str_util_uuid() -> None:

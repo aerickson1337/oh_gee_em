@@ -49,6 +49,7 @@ myst-parser = {version = ">=0.16.1"}
 ipykernel = "^6.25.2"
 autoflake = "^2.2.1"
 ruff = "^0.0.292"
+names = "^0.3.0"
 
 [tool.poetry.scripts]
 oh_gee_em = "oh_gee_em.__main__:main"

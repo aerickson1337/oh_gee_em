@@ -828,6 +828,14 @@ testing = ["beautifulsoup4", "coverage", "pytest (>=7,<8)", "pytest-cov", "pytes
 testing-docutils = ["pygments", "pytest (>=7,<8)", "pytest-param-files (>=0.3.4,<0.4.0)"]
 
 [[package]]
+name = "names"
+version = "0.3.0"
+description = "Generate random names"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "nest-asyncio"
 version = "1.5.8"
 description = "Patch asyncio to allow nested event loops"
@@ -1611,7 +1619,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "290c539db144b649563b47e1a082e61d619853633759e63192f95df81ff7f8dd"
+content-hash = "f131b1fa041a89b7145568d432cf449e991814a2c5fa00f599d1acbebf3c5461"
 
 [metadata.files]
 aenum = [
@@ -2387,6 +2395,9 @@ mypy-extensions = [
 myst-parser = [
     {file = "myst_parser-2.0.0-py3-none-any.whl", hash = "sha256:7c36344ae39c8e740dad7fdabf5aa6fc4897a813083c6cc9990044eb93656b14"},
     {file = "myst_parser-2.0.0.tar.gz", hash = "sha256:ea929a67a6a0b1683cdbe19b8d2e724cd7643f8aa3e7bb18dd65beac3483bead"},
+]
+names = [
+    {file = "names-0.3.0.tar.gz", hash = "sha256:726e46254f2ed03f1ffb5d941dae3bc67c35123941c29becd02d48d0caa2a671"},
 ]
 nest-asyncio = [
     {file = "nest_asyncio-1.5.8-py3-none-any.whl", hash = "sha256:accda7a339a70599cb08f9dd09a67e0c2ef8d8d6f4c07f96ab203f2ae254e48d"},

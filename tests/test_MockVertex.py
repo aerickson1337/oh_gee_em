@@ -9,7 +9,7 @@ from oh_gee_em import BaseVertex
 class Person(BaseVertex):
     name: str
     age: int
-    sex: str
+    sex: str | None = None
 
 
 @pytest.fixture

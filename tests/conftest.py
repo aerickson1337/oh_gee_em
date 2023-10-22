@@ -17,3 +17,8 @@ def g() -> GraphTraversalSource:
 @pytest.fixture(scope="function")
 def reset(g) -> None:
     g.V().drop().iterate()
+
+
+@pytest.fixture(params=[10])
+def count(request) -> None:
+    return request.param
