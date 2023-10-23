@@ -37,8 +37,10 @@ class BaseVertex(BaseModel):
             return {T.id: self.id, T.label: self.label}
         return {}
 
-    def dump_props(self, exclude=("id", "label"), **kwargs):
-        return {T.label: self.label, **self.model_dump(exclude=exclude, **kwargs)}
+    def dump_props(self, add_label=True, exclude=("id", "label"), **kwargs):
+        if add_label:
+            return {T.label: self.label, **self.model_dump(exclude=exclude, **kwargs)}
+        return self.model_dump(exclude=exclude, **kwargs)
 
     def project(self):
         projection_dict = {}
@@ -111,11 +113,11 @@ class BaseVertex(BaseModel):
 
     def save(self, g) -> BaseVertex:
         """save mutations to current class to db, load what db returned."""
-        tinker_ids = self.tinker_id_label()
-
+        # on_match doesn't like T.label, skip passing in this context since some graph
+        # providers don't let you update label without re-creating the vertex.
         vertex = next(
-            g.merge_v(tinker_ids)
-            .option(Merge.on_match, self.dump_props(exclude_none=True))
+            g.merge_v(self.tinker_id())
+            .option(Merge.on_match, self.dump_props(add_label=False, exclude_none=True))
             .element_map(),
             None,
         )
@@ -133,10 +135,8 @@ class BaseVertex(BaseModel):
 
     def create(self, g) -> BaseVertex:
         """create this class in the db if it doesn't exist."""
-        tinker_ids = self.tinker_id_label()
-
         vertex = next(
-            g.merge_v(tinker_ids)
+            g.merge_v(self.tinker_id())
             .option(Merge.on_create, self.dump_props(exclude_none=True))
             .element_map(),
             None,
@@ -152,3 +152,8 @@ class BaseVertex(BaseModel):
     def delete(self, g) -> None:
         """delete this class from the db."""
         g.V(self.id).drop().iterate()
+
+
+    def drop(self, g, property) -> BaseVertex:
+        setattr(self, property, next(g.V(self.id).properties(property).drop(), None))
+        return self

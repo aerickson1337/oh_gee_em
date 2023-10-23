@@ -14,7 +14,7 @@ class Person(BaseVertex):
 
 @pytest.fixture
 def fred():
-    return Person(name="fred", age="22", sex="m")
+    return Person(id=uuid4(), name="fred", age="22", sex="m")
 
 
 # ---------------------------------------------------------------------------- #
@@ -158,3 +158,22 @@ def test_mock_person_delete(g, reset, fred) -> None:
     # del fred, guessing not.
     fred = fred.delete(g)
     assert fred is None
+
+def test_mock_person_drop(g, reset, fred) -> None:
+    """test Person.drop() property convenince method works"""
+    fred.create(g)
+
+    assert fred.name == "fred"
+    assert fred.age == 22
+    assert fred.sex == "m"
+
+
+    fred.drop(g, "name")
+    fred.drop(g, "age")
+    fred.drop(g, "sex")
+    assert fred.name == None
+    assert fred.age == None
+    assert fred.sex == None
+    assert g.V(fred.id).properties("name").values().to_list() == []
+    assert g.V(fred.id).properties("age").values().to_list() == []
+    assert g.V(fred.id).properties("sex").values().to_list() == []
