@@ -3,7 +3,7 @@
 # from .localname2 import SomeClass
 from .BaseEdge import BaseEdge
 from .BaseVertex import BaseVertex
-from .BaseVerticies import BaseVertices
+from .BaseVertices import BaseVertices
 
 
 __all__ = [
