@@ -159,6 +159,7 @@ def test_mock_person_delete(g, reset, fred) -> None:
     fred = fred.delete(g)
     assert fred is None
 
+
 def test_mock_person_drop(g, reset, fred) -> None:
     """test Person.drop() property convenince method works"""
     fred.create(g)
@@ -167,13 +168,12 @@ def test_mock_person_drop(g, reset, fred) -> None:
     assert fred.age == 22
     assert fred.sex == "m"
 
-
     fred.drop(g, "name")
     fred.drop(g, "age")
     fred.drop(g, "sex")
-    assert fred.name == None
-    assert fred.age == None
-    assert fred.sex == None
+    assert fred.name is None
+    assert fred.age is None
+    assert fred.sex is None
     assert g.V(fred.id).properties("name").values().to_list() == []
     assert g.V(fred.id).properties("age").values().to_list() == []
     assert g.V(fred.id).properties("sex").values().to_list() == []

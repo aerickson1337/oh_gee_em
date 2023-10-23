@@ -7,8 +7,10 @@ import pytest
 from .test_utilities import People
 from .test_utilities import Person
 
+
 age_range = range(-10, 200)
 sex_opts = ["m", "f", None]
+
 
 @pytest.fixture
 def local_people() -> People:
@@ -53,6 +55,7 @@ def test_base_vertices_create_x(g, reset, count, local_random_people) -> None:
     local_random_people.create(g)
     assert len(local_random_people) == count
 
+
 @pytest.mark.parametrize("count", [1])
 def test_base_vertices_save_x(g, reset, count, local_random_people) -> None:
     local_random_people.create(g)
@@ -67,6 +70,7 @@ def test_base_vertices_save_x(g, reset, count, local_random_people) -> None:
         assert g.V(person.id).properties("name").value().next() == "new_bulk_name"
         assert g.V(person.id).properties("age").value().next() == 69
 
+
 @pytest.mark.parametrize("count", [1])
 def test_base_vertices_save_None(g, reset, count, local_random_people) -> None:
     local_random_people.create(g)
@@ -77,12 +81,12 @@ def test_base_vertices_save_None(g, reset, count, local_random_people) -> None:
         person.age = 69
         person.sex = None
     local_random_people.save(g)
-    
 
     for person in local_random_people:
         assert next(g.V(person.id).properties("name").value(), None) == "new_bulk_name"
         assert next(g.V(person.id).properties("age").value(), None) == 69
         assert next(g.V(person.id).properties("sex").value(), None) is None
+
 
 @pytest.mark.parametrize("count", [1])
 def test_base_vertices_save_drop_x(g, reset, count, local_random_people) -> None:

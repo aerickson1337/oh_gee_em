@@ -153,7 +153,6 @@ class BaseVertex(BaseModel):
         """delete this class from the db."""
         g.V(self.id).drop().iterate()
 
-
     def drop(self, g, property) -> BaseVertex:
         setattr(self, property, next(g.V(self.id).properties(property).drop(), None))
         return self
